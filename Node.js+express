@@ -1,0 +1,26 @@
+import bcrypt from'bcrypt'
+8.	const saltRounds = 10 // increase this if you want more iterations
+9.	const userPassword = 'supersecretpassword'
+10.	const randomPassword = 'fakepassword'
+11.
+12.	const storeUserPassword = (password, salt) =>
+13.	  bcrypt.hash(password, salt).then(storeHashInDatabase)
+14.
+15.	const storeHashInDatabase = (hash) => {
+16.	   // Store the hash in your password DB
+17.	   return hash // For now we are returning the hash for testing at the bottom
+18.	}
+19.
+20.	// Returns true if user password is correct, returns false otherwise
+21.	const checkUserPassword = (enteredPassword, storedPasswordHash) =>
+22.	  bcrypt.compare(enteredPassword, storedPasswordHash)
+23.
+24.
+25.	// This is for demonstration purposes only.
+26.	storeUserPassword(userPassword, saltRounds)
+27.	  .then(hash =>
+28.	    // change param userPassword to randomPassword to get false
+29.	    checkUserPassword(userPassword, hash)
+30.	  )
+31.	  .then(console.log)
+32.	  .catch(console.error)
